@@ -1,0 +1,10 @@
+Статус текущих стран:<br><br>
+
+<b>{{ country.name }}</b><br>
+{% for city in country.cities %}
+    <b>{{city.name}}:</b><br>
+        Щит: {% if city.has_shield %} Есть{% else %} Нет{% endif %}<br>
+        Развитие: {{city.development}}%<br>
+        Уровень жизни: {{city.life_level}}%<br>
+        Статус: {% if city.is_alive %} Жив{% else %} Разбомблен{% endif %}<br>
+{% endfor %}
