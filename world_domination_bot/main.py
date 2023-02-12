@@ -15,6 +15,8 @@ ROOT_DIR = Path(os.getcwd()).resolve()
 if ROOT_DIR not in sys.path:
     sys.path.append(str(ROOT_DIR))
 
+
+from callbacks.callback_lib import get_callbacks
 from common.config import TO_GENERATE_AND_DROP_DB
 from common.config import TOKEN_API
 from common.logger import setup_logging
