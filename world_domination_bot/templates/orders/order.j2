@@ -1,0 +1,12 @@
+<em>Ваш текущий приказ</em><br><br>
+
+<b>Монет на начало хода:</b> {{current_money}}<br>
+<b>Текущая стоимость приказа:</b> {{order.price}}<br><br>
+
+<b>Разработать ядерную технологию:</b> {% if order.nuke_tech %} Да{% else %} Нет{% endif %}<br>
+<b>Построить ядерные ракеты:</b> {{order.build_bomb}}<br>
+<b>Развить город:</b> {% if order.dev_city %}{% for city_name in order.dev_city%}{{city_name}} {% endfor %}{% else %} Нет{% endif %}<br>
+<b>Передать деньги:</b> {% if order.send_money %} {% for receiver in order.send_money%}{{receiver.name}}: {{receiver.got_money}} {% endfor %}{% else %} Нет{% endif %}<br>
+<b>Построить щит:</b> {% if order.build_shield %} {% for city in order.build_shield%}{{city.name}} {% endfor %}{% else %} Нет{% endif %}<br>
+<b>Развить экологию:</b> {% if order.dev_eco %} Да{% else %} Нет{% endif %}<br>
+<b>Разомбить города:</b> {% if order.bomb %} {% for city in order.bomb%}{{city.name}} {% endfor %}{% else %} Нет{% endif %}<br>
