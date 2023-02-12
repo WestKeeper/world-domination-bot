@@ -1,7 +1,9 @@
 from typing import List
 from sqlalchemy.orm import Session
 
+from db.models.countries import Country
 from db.models.cities import City
+from db.models.leaders import Leader
 from schemas.cities import CityShow
 
 
@@ -27,7 +29,7 @@ def create_city(
     db.commit()
 
 
-def get_country_cities(
+def get_cities_by_country_name(
     country_name: str,
     db: Session,
 ) -> List[CityShow]:
@@ -44,3 +46,15 @@ def get_country_cities(
         )
         cities_shows.append(city_show)
     return cities_shows
+
+
+def get_cities_by_user_id(
+    user_id: str,
+    db: Session,
+) -> List[CityShow]:
+    """"""
+    country = db.query(Country).join(Leader).filter(Leader.user_id == user_id).one()
+    city_shows = get_cities_by_country_name(country.name, db)
+
+    return city_shows
+
