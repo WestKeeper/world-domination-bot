@@ -17,3 +17,6 @@ TO_GENERATE_AND_DROP_DB = True
 
 # Templates constants
 TEMPLATES_DIR = ROOT_DIR / 'templates'
+
+# Modes constants
+TEST_MODE = True

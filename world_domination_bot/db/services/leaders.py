@@ -1,3 +1,4 @@
+from typing import Optional
 from sqlalchemy.orm import Session
 
 from db.models.leaders import Leader
@@ -18,4 +19,16 @@ def create_leader(
         session_id=session_id,
     )
     db.add(leader)
+    db.commit()
+
+
+def update_leader_by_name(
+    name: str,
+    db: Session,
+    *,
+    user_id: Optional[int] = None,
+):
+    """"""
+    leader = db.query(Leader).filter(Leader.name == name).one()
+    leader.user_id = user_id
     db.commit()

@@ -1,6 +1,9 @@
-Статус текущих стран:<br><br>
+Статус страны <b>{{country.name}}{% if is_user_country %} (ЭТО ВАША СТРАНА) {% endif %}</b>:<br><br>
 
-<b>{{ country.name }}</b><br>
+
+Средний уровень жизни: {{mean_life_level}}%<br><br>
+
+
 {% for city in country.cities %}
     <b>{{city.name}}:</b><br>
         Щит: {% if city.has_shield %} Есть{% else %} Нет{% endif %}<br>
