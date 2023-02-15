@@ -1,4 +1,7 @@
-Статус страны <b>{{ country.name }}{% if is_user_country %} (ЭТО ВАША СТРАНА) {% endif %}</b>:<br><br>
+Статус страны <b>{{country.name}}{% if is_user_country %} (ЭТО ВАША СТРАНА) {% endif %}</b>:<br><br>
+
+
+Средний уровень жизни: {{mean_life_level}}%<br><br>
 
 
 {% for city in country.cities %}

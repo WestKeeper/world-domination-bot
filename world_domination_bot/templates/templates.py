@@ -10,9 +10,6 @@ def render_template(template_name: str, data: Optional[Dict[str, Any]] = None) -
         data = {}
 
     template = _get_template_env().get_template(template_name)
-    print('_______________-')
-    print(data)
-    print(data['order'].__dict__ if 'order' in data else 1)
     rendered = template.render(**data).replace('\n', '')
     rendered = rendered.replace('<br>', '\n')
 
