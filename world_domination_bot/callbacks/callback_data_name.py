@@ -3,4 +3,6 @@ from enum import Enum
 
 class CallbackDataName(Enum):
     """"""
-    USER_CITIES = 'user_cities'
+    DEV_CITY = 'dev_city'
+    BUILD_SHIELD = 'build_shield'
+
