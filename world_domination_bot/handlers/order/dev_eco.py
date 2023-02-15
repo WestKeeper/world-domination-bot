@@ -12,19 +12,33 @@ from templates.templates import render_template
 
 async def dev_eco_command(message: Message, state: FSMContext, db: Session = next(get_db())):
     """"""
+    kb = get_order_keyboard()
+
     order_state = None
     order_action = get_order_action_by_action_name(OrderAction.DEV_ECO.value, db)
     user_country = get_country_by_user_id(message.from_user.id, db)
     async with state.proxy() as data:
-        # TODO(SemenyutaAV): Constraint of only once increasing
+        if user_country.budget < data['order'].price + order_action.price:
+            await message.answer(
+                render_template('orders/not_enough_money.j2'),
+                parse_mode='HTML', reply_markup=kb)
+            await message.delete()
+            return
+        if data['order'].dev_eco:
+            await message.answer(
+                render_template('orders/order_has_already_dev_eco.j2'),
+                parse_mode='HTML', reply_markup=kb)
+            await message.delete()
+            return
+
         data['order'].price += order_action.price
         data['order'].dev_eco = True
         order_state = data['order']
 
-    kb = get_order_keyboard()
     await message.answer(
         render_template('orders/order.j2', data={'order': order_state,
-                                                 'current_money': user_country.budget}),
+                                                 'current_money': user_country.budget,
+                                                 'bomb_number': user_country.bombs_number}),
         parse_mode='HTML', reply_markup=kb)
     await message.delete()
 
@@ -35,6 +49,8 @@ async def dev_eco_cancel_command(
     db: Session = next(get_db())
 ):
     """"""
+    kb = get_order_keyboard()
+
     order_state = None
     order_action = get_order_action_by_action_name(OrderAction.DEV_ECO.value, db)
     user_country = get_country_by_user_id(message.from_user.id, db)
@@ -43,9 +59,9 @@ async def dev_eco_cancel_command(
         data['order'].dev_eco = False
         order_state = data['order']
 
-    kb = get_order_keyboard()
     await message.answer(
         render_template('orders/order.j2', data={'order': order_state,
-                                                 'current_money': user_country.budget}),
+                                                 'current_money': user_country.budget,
+                                                 'bomb_number': user_country.bombs_number}),
         parse_mode='HTML', reply_markup=kb)
     await message.delete()

@@ -6,15 +6,13 @@ from db.services.countries import get_country_by_user_id
 from db.session import get_db
 from keyboards.default.order_keyboard import get_order_keyboard
 from schemas.orders import OrderState
-from states.game_states_group import GameStatesGroup
 from templates.templates import render_template
 
 
-async def order_command(message: Message, state: FSMContext, db: Session = next(get_db())):
+async def restore_order_command(
+    message: Message, state: FSMContext, db: Session = next(get_db())):
     """"""
     kb = get_order_keyboard()
-
-    await GameStatesGroup.order.set()
 
     order_state = None
     user_country = get_country_by_user_id(message.from_user.id, db)
@@ -35,6 +33,5 @@ async def order_command(message: Message, state: FSMContext, db: Session = next(
         render_template('orders/order.j2', data={'order': order_state,
                                                  'current_money': user_country.budget,
                                                  'bomb_number': user_country.bombs_number}),
-        parse_mode='HTML', reply_markup=kb,
-    )
+        parse_mode='HTML', reply_markup=kb)
     await message.delete()
