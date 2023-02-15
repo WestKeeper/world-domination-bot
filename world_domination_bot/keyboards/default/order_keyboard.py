@@ -30,6 +30,7 @@ def get_order_keyboard() -> ReplyKeyboardMarkup:
 
     restore_order_button = KeyboardButton('/restore_order')
     send_order_button = KeyboardButton('/send_order')
+    cancel_order_button = KeyboardButton('/cancel_order')
 
     kb = ReplyKeyboardMarkup(keyboard=[
         [restart_button, status_button],
@@ -40,7 +41,7 @@ def get_order_keyboard() -> ReplyKeyboardMarkup:
         [build_shield_button, build_shield_cancel_button],
         [dev_eco_button, dev_eco_cancel_button],
         [bomb_button, bomb_cancel_button],
-        [restore_order_button, send_order_button]],
+        [restore_order_button, send_order_button, cancel_order_button]],
         resize_keyboard=True)
 
     return kb
