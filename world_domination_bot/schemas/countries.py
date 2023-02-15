@@ -5,6 +5,12 @@ from schemas.cities import CityShow
 
 
 @dataclass
+class CountryNameShow:
+    """"""
+    name: str
+
+
+@dataclass
 class CountryShow:
     """"""
     name: str
@@ -25,3 +31,6 @@ class CountryPriceShow:
     name: str
     user_id: int
     budget: int
+    nuke_tech: bool
+    bombs_number: int
+    cities: List[CityShow]
