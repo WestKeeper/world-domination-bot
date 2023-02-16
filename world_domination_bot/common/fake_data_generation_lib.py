@@ -149,12 +149,7 @@ def generate_test_session(db: Session):
     """"""
     create_pricelist(db)
     create_session(
-        id=0,
-        ecology_level=90,
-        build_bombs_num=0,
-        drop_bombs_num=0,
-        nuke_tech_num=0,
-        dev_eco_num=0,
+        host_user_id=228228,
         db=db,
     )
     create_north_korea(session_id=0, user_id=228228, db=db)

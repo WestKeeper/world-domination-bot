@@ -1,5 +1,10 @@
 from sqlalchemy.orm import Session
 
+from common.config import START_BUILD_BOMBS_NUM
+from common.config import START_DEV_ECO_NUM
+from common.config import START_DROP_BOMBS_NUM
+from common.config import START_ECOLOGY_LEVEL
+from common.config import START_NUKE_TECH_NUM
 from common.order_lib.calculate_ecology_level import calculate_ecology_level
 from db.models.game_sessions import GameSession
 from db.models.leaders import Leader
@@ -7,25 +12,34 @@ from schemas.game_sessions import GameSessionShow
 
 
 def create_session(
-    id: int,
-    ecology_level: int,
-    build_bombs_num: int,
-    drop_bombs_num: int,
-    nuke_tech_num: int,
-    dev_eco_num: int,
+    host_user_id: int,
     db: Session,
+    *,
+    ecology_level: int = START_ECOLOGY_LEVEL,
+    build_bombs_num: int = START_BUILD_BOMBS_NUM,
+    drop_bombs_num: int = START_DROP_BOMBS_NUM,
+    nuke_tech_num: int = START_NUKE_TECH_NUM,
+    dev_eco_num: int = START_DEV_ECO_NUM,
 ):
     """"""
-    country = GameSession(
-        id=id,
+    session = GameSession(
+        host_id=host_user_id,
         ecology_level=ecology_level,
         build_bombs_num=build_bombs_num,
         drop_bombs_num=drop_bombs_num,
         nuke_tech_num=nuke_tech_num,
         dev_eco_num = dev_eco_num,
     )
-    db.add(country)
+
+    session_show = GameSessionShow(
+        id=session.id,
+        ecology_level=session.ecology_level,
+    )
+
+    db.add(session)
     db.commit()
+
+    return session_show
 
 
 def get_session_by_user_id(
