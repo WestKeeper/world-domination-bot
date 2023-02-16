@@ -32,7 +32,7 @@ async def on_startup(_, db: GameSession = next(get_db())):
     logger.info('Bot was successfully launched')
     if TO_GENERATE_AND_DROP_DB:
         generate_test_session(db)
-    logger.info('Test data was generated successfully.')
+        logger.info('Test data was generated successfully.')
 
 
 async def on_shutdown(dp: Dispatcher, db: GameSession = next(get_db())):
