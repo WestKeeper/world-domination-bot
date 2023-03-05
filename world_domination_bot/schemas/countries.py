@@ -9,16 +9,22 @@ class CountryNameShow:
     """"""
     name: str
 
+@dataclass
+class CountryBaseShow:
+    """"""
+    name: str
+    init_budget: int
+
 
 @dataclass
-class CountryShow:
+class CountryCitiesShow:
     """"""
     name: str
     cities: List[CityShow]
 
 
 @dataclass
-class CountryUserShow:
+class CountryUserCitiesShow:
     """"""
     name: str
     user_id: int
@@ -26,11 +32,12 @@ class CountryUserShow:
 
 
 @dataclass
-class CountryPriceShow:
+class CountryFullShow:
     """"""
-    name: str
-    user_id: int
+    id: int
     budget: int
-    nuke_tech: bool
+    has_nuke_tech: bool
     bombs_number: int
+    name: str
+    leader_id: int
     cities: List[CityShow]
