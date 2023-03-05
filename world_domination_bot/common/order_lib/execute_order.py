@@ -1,12 +1,12 @@
 from sqlalchemy.orm import Session
 
-from db.services.cities import bomb_cities_from_user_id
-from db.services.cities import build_shield_on_cities
-from db.services.cities import develop_cities_by_city_names
-from db.services.countries import decrease_country_budget_by_user_id
-from db.services.countries import give_country_bomb_by_user_id
-from db.services.countries import give_country_nuke_tech_by_user_id
-from db.services.countries import send_money_to_country_from_user_id
+from db.services.session_cities import bomb_cities_from_user_id
+from db.services.session_cities import build_shield_on_cities
+from db.services.session_cities import develop_cities_by_city_names
+from db.services.session_countries import decrease_country_budget_by_user_id
+from db.services.session_countries import give_country_bomb_by_user_id
+from db.services.session_countries import give_country_nuke_tech_by_user_id
+from db.services.session_countries import send_money_to_country_from_user_id
 from db.services.game_sessions import develop_ecology_by_user_id
 from schemas.orders import OrderState
 
