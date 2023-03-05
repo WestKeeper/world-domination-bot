@@ -1,34 +1,34 @@
-from typing import Optional
 from sqlalchemy.orm import Session
 
-from db.models.leaders import Leader
+from db.base import Leader
+from schemas.leaders import LeaderShow
 
 
 def create_leader(
-    name: str,
     user_id: int,
-    country_name: str,
     session_id: int,
     db: Session,
 ):
     """"""
     leader = Leader(
-        name=name,
         user_id=user_id,
-        country_name=country_name,
         session_id=session_id,
     )
     db.add(leader)
     db.commit()
 
 
-def update_leader_by_name(
-    name: str,
+def get_leader_by_user_id_n_session_id(
+    user_id: int,
+    session_id: int,
     db: Session,
-    *,
-    user_id: Optional[int] = None,
 ):
     """"""
-    leader = db.query(Leader).filter(Leader.name == name).one()
-    leader.user_id = user_id
-    db.commit()
+    leader = db.query(Leader) \
+        .filter(Leader.user_id == user_id,
+                Leader.session_id == session_id) \
+        .one()
+
+    leader_show = LeaderShow(leader.id, leader.user_id, leader.session_id)
+
+    return leader_show

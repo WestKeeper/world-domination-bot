@@ -2,4 +2,15 @@ from db.base_class import Base
 from db.models.cities import City
 from db.models.countries import Country
 from db.models.game_sessions import GameSession
+from db.models.host_sessions import HostSession
 from db.models.leaders import Leader
+from db.models.order_actions import OrderAction
+from db.models.ordered_bomb_cities import OrderedBombCity
+from db.models.ordered_build_shield_cities import OrderedBuildShieldCity
+from db.models.ordered_dev_cities import OrderedDevCity
+from db.models.ordered_sent_money_countries import OrderedSentMoneyCountry
+from db.models.orders import Order
+from db.models.rounds import Round
+from db.models.session_cities import SessionCity
+from db.models.session_countries import SessionCountry
+from db.models.users import User

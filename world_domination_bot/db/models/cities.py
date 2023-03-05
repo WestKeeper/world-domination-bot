@@ -10,12 +10,13 @@ from db.base_class import Base
 
 
 class City(Base):
+    """"""
     name = Column(String, primary_key=True, index=True)
-    country_name = Column(String, ForeignKey('country.name'))
-    has_shield = Column(Boolean, nullable=False)
+    init_has_shield = Column(Boolean, nullable=False)
     init_development = Column(Integer, nullable=False)
-    development = Column(Integer, nullable=False)
-    development_number = Column(Integer, nullable=False)
-    life_level = Column(Integer, nullable=False)
-    is_alive = Column(Boolean, nullable=False)
+    init_life_level = Column(Integer, nullable=False)
+
+    country_name = Column(String, ForeignKey('country.name'))
+
     country = relationship('Country', back_populates='cities')
+    session_cities = relationship('SessionCity', back_populates='city')

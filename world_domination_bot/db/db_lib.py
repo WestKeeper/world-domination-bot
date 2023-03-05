@@ -1,5 +1,7 @@
 from db.base import Base
 from db.session import engine
+from common.config import NOT_TO_DROP_TABLES
+from common.config import TO_GENERATE_AND_DROP_DB
 
 
 def create_tables():
@@ -10,4 +12,5 @@ def create_tables():
 def drop_tables():
     """"""
     for table in Base.metadata.sorted_tables:
-        table.drop(engine, checkfirst=False)
+        if TO_GENERATE_AND_DROP_DB and table.name in NOT_TO_DROP_TABLES:
+          table.drop(engine, checkfirst=False)

@@ -1,15 +1,19 @@
 from sqlalchemy.orm import Session
 
-from db.models.order_actions import OrderAction
+from db.base import OrderAction
 from schemas.order_actions import OrderActionShow
 
 
-def create_order_action(
+def create_order_action_if_not_exists(
     name: str,
     price: int,
     db: Session,
 ):
     """"""
+    exists = db.query(OrderAction).filter(OrderAction.name == name).first()
+    if exists:
+        return
+
     order_action = OrderAction(
         name=name,
         price=price,
