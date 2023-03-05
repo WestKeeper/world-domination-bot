@@ -4,11 +4,11 @@ from aiogram.types import InlineKeyboardButton
 from aiogram.types import InlineKeyboardMarkup
 
 from callbacks.bomb_countries_callback_data import get_bomb_countries_callback_data
-from schemas.countries import CountryShow
+from schemas.countries import CountryCitiesShow
 
 
 def get_bomb_countries_inline_keyboard(
-    countries: List[CountryShow],
+    countries: List[CountryCitiesShow],
 ) -> InlineKeyboardMarkup:
     """"""
     buttons = []

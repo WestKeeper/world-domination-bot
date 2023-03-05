@@ -3,19 +3,19 @@ from typing import List
 from aiogram.types import InlineKeyboardButton
 from aiogram.types import InlineKeyboardMarkup
 
-from callbacks.send_money_callback_data import get_send_money_callback_data
-from schemas.countries import CountryCitiesShow
+from callbacks.sessions_callback_data import get_sessions_callback_data
+from schemas.game_sessions import GameSessionShow
 
 
-def get_send_money_inline_keyboard(
-    countries: List[CountryCitiesShow],
+def get_sessions_inline_keyboard(
+    sessions: List[GameSessionShow],
 ) -> InlineKeyboardMarkup:
     """"""
     buttons = []
-    callback_data = get_send_money_callback_data()
-    for country in countries:
+    callback_data = get_sessions_callback_data()
+    for session in sessions:
         button = InlineKeyboardButton(
-            text=country.name, callback_data=callback_data.new(country.name))
+            text=session.id, callback_data=callback_data.new(session.id))
         buttons.append(button)
 
     kb = InlineKeyboardMarkup(inline_keyboard=[
