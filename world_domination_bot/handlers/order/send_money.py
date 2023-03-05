@@ -6,8 +6,9 @@ from aiogram.types import Message
 from sqlalchemy.orm import Session
 
 from db.enums import OrderAction
-from db.services.countries import get_not_user_countries
-from db.services.countries import get_country_by_user_id
+from db.services.game_sessions import get_active_session_by_user_id
+from db.services.session_countries import get_not_user_countries
+from db.services.session_countries import get_country_by_user_id_and_session_id
 from db.services.order_actions import get_order_action_by_action_name
 from db.session import get_db
 from keyboards.default.order_keyboard import get_order_keyboard
@@ -35,7 +36,8 @@ async def send_money_cancel_command(
 
     order_state = None
     order_action = get_order_action_by_action_name(OrderAction.SEND_MONEY.value, db)
-    user_country = get_country_by_user_id(message.from_user.id, db)
+    session = get_active_session_by_user_id(message.from_user.id, db)
+    user_country = get_country_by_user_id_and_session_id(message.from_user.id, session.id, db=db)
     async with state.proxy() as data:
         data['order'].price -= len(data['order'].send_money) * order_action.price
         data['order'].send_money = {}
@@ -80,7 +82,8 @@ async def send_money_amount_command(
 
     order_state = None
     order_action = get_order_action_by_action_name(OrderAction.SEND_MONEY.value, db)
-    user_country = get_country_by_user_id(message.from_user.id, db)
+    session = get_active_session_by_user_id(message.from_user.id, db)
+    user_country = get_country_by_user_id_and_session_id(message.from_user.id, session.id, db=db)
     async with state.proxy() as data:
         if user_country.budget < data['order'].price + order_action.price:
             await message.answer(

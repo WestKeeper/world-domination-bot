@@ -1,14 +1,14 @@
 from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 
-from keyboards.default.init_keyboard import get_init_keyboard
+from keyboards.default.round_keyboard import get_round_keyboard
 from schemas.orders import OrderState
 from templates.templates import render_template
 
 
 async def cancel_order_command(message: Message, state: FSMContext):
     """"""
-    kb = get_init_keyboard()
+    kb = get_round_keyboard()
 
     async with state.proxy() as data:
         data['order'] = OrderState(

@@ -2,7 +2,8 @@ from aiogram.dispatcher import FSMContext
 from aiogram.types import Message
 from sqlalchemy.orm import Session
 
-from db.services.countries import get_country_by_user_id
+from db.services.game_sessions import get_active_session_by_user_id
+from db.services.session_countries import get_country_by_user_id_and_session_id
 from db.session import get_db
 from keyboards.default.order_keyboard import get_order_keyboard
 from schemas.orders import OrderState
@@ -15,7 +16,8 @@ async def restore_order_command(
     kb = get_order_keyboard()
 
     order_state = None
-    user_country = get_country_by_user_id(message.from_user.id, db)
+    session = get_active_session_by_user_id(message.from_user.id, db)
+    user_country = get_country_by_user_id_and_session_id(message.from_user.id, session.id, db=db)
     async with state.proxy() as data:
         data['order'] = OrderState(
             price=0,
