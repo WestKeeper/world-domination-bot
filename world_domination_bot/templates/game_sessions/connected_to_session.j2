@@ -1,0 +1,6 @@
+<em>Успешно подключились к сессии {{session.id}}!</em><br><br>
+
+К этой сессии подключены:<br>
+{% for user in users %}
+    <b>{{user.name}}</b><br>
+{% endfor %}
